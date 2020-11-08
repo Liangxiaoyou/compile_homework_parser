@@ -128,10 +128,12 @@ union YYSTYPE
       Actual actual;
       Actuals actuals;
       
+      Constant constant;
+
       char *error_msg;
     
 
-#line 135 "seal.tab.h"
+#line 137 "seal.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

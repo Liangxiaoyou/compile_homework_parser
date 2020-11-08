@@ -112,6 +112,8 @@
       Actual actual;
       Actuals actuals;
       
+      Constant constant;
+
       char *error_msg;
     }
     
@@ -150,6 +152,24 @@
 	// Add more here
     %type <variable> variable
     %type <variableDecl> variableDecl
+    %type <variables> variables
+    %type <variableDecls> variableDecls
+    %type <callDecl> callDecl
+    %type <stmtBlock> stmtBlock
+    %type <stmt> stmt;
+    %type <stmts> stmts;
+    //%type <ifStmt> ifStmt;
+    //%type <whileStmt> whileStmt;
+    //%type <forStmt> forStmt;
+    //%type <returnStmt> returnStmt;
+    //%type <continueStmt> continueStmt;
+    //%type <breakStmt> breakStmt;
+    %type <expr> expr;
+    //%type <exprs> exprs;
+    %type <expr> constant;
+    //%type <call> call;
+    //%type <actual> actual;
+    //%type <actuals> actuals;
     /* Precedence declarations go here. */
 	  %nonassoc '='
 
@@ -175,7 +195,7 @@
     ;
     
     decl : variableDecl {$$ = $1;}
-    //|callDecl {$$ = decl($1);}
+    |callDecl {$$ = $1;}
     ;
     //变量定义
     variableDecl  :  VAR variable ';'{
@@ -186,6 +206,77 @@
 					$$ = variable($1, $2);
 				}
 				;
+    //函数内的变量定义模块
+    variableDecls :variableDecl{$$ = single_VariableDecls($1);}
+    |variableDecls  variableDecl {$$ = append_VariableDecls($1,single_VariableDecls($2));}
+    |{$$ = nil_VariableDecls();}
+    ;
+    //函数参数的变量声明模块
+    variables :variable{$$ =  single_Variables($1);}
+    |variables ',' variable {$$ = append_Variables($1,single_Variables($3));}
+    |{$$ = nil_Variables();}
+    ;
+    //函数声明和实现
+    callDecl  :FUNC OBJECTID '(' variables ')' TYPEID stmtBlock{
+      $$ = callDecl($2,$4,$6,$7);
+    }
+    ;
+    //语句块
+    stmtBlock :'{' variableDecls stmts '}'{
+    $$ = stmtBlock($2, $3);
+    }
+    ;
+
+    stmts :stmts stmt{$$ = append_Stmts($1,single_Stmts($2));}
+    |stmt{$$ = single_Stmts($1);}
+    |{$$ = nil_Stmts();}
+    ;
+    
+    //单个语句
+    stmt  :';'{}
+    |expr ';'
+    //|ifStmt
+    //|whileStmt
+    //|forStmt
+    //|breakStmt
+    //|continueStmt
+    //|returnStmt
+    |stmtBlock{$$ = $1;}
+    ;
+    
+    //ifStmt:IF expr stmtBlock ELSE stmtBlock{ifstmt($2;$3;$5);}
+    //|IF expr stmtBlock{ifstmt($2; $3);}
+    expr  :constant{$$ = $1;}
+    |OBJECTID '=' expr {$$ = assign($1, $3);}
+    //|call
+    |'(' expr ')' {$$ = $2;}
+    |OBJECTID {$$ = object($1);}
+    |expr '+' expr {$$ = add($1, $3);}
+    |expr '-' expr {$$ = minus($1, $3);}
+    |expr '*' expr {$$ = multi($1, $3);}
+    |expr '/' expr {$$ = divide($1, $3);}
+    |expr '%' expr {$$ = mod ($1,$3);} 
+    | '-' expr {$$ = neg($2);}
+    |expr '<' expr {$$ = le($1, $3); }
+    |expr '>' expr {$$ = lt($1, $3); }
+    |expr GE expr  {$$ = ge($1, $3);}
+    |expr NE expr  {$$ = neq($1,$3);}
+    |expr LE expr  {$$ = gt($1, $3);} //maybe wrong!
+    |expr EQUAL expr {$$ = equ($1,$3);}
+    |expr AND expr {$$ = and_($1, $3);}
+    |expr OR expr  {$$ = or_($1 , $3);}
+    |expr '^' expr {$$ = xor_($1, $3);}
+    |expr '&' expr {bitand_($1, $3);}
+    |expr '|' expr {bitor_($1, $3);}
+    |'!' expr {$$ = not_($2);}
+    |'~' expr {$$ = bitnot($2);}
+    ;
+    
+    constant  :CONST_INT{$$ = const_int($1);}
+    |CONST_FLOAT{$$ = const_float($1);}
+    |CONST_STRING{$$ = const_string($1);}
+    |CONST_BOOL{$$ = const_bool($1);}
+    ;
     /* end of grammar */
 %%
     

@@ -4,5 +4,9 @@
 */
 
 func zhanzhuanxiangchu(a Int, b Int) Int{
-    for ;; {}
+var a Int;
+var b Bool;
+var c String;
+var d Float; 
+5%1;
 }
