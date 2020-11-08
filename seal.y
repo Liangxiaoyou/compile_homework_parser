@@ -148,7 +148,8 @@
     %type <decl> decl
 
 	// Add more here
-
+    %type <variable> variable
+    %type <variableDecl> variableDecl
     /* Precedence declarations go here. */
 	  %nonassoc '='
 
@@ -165,7 +166,26 @@
       ;
 
     // add more syntax rules here
+    decl_list	: decl	{ 
+      $$ = single_Decls($1);
+    }
+    | decl_list decl { 
+      $$ = append_Decls($1, single_Decls($2)); 
+    }
+    ;
     
+    decl : variableDecl {$$ = $1;}
+    //|callDecl {$$ = decl($1);}
+    ;
+    //变量定义
+    variableDecl  :  VAR variable ';'{
+       $$ = variableDecl($2);
+    };
+    //变量声明
+	  variable	:	OBJECTID TYPEID {
+					$$ = variable($1, $2);
+				}
+				;
     /* end of grammar */
 %%
     
