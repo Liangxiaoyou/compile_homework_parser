@@ -7,6 +7,6 @@ func zhanzhuanxiangchu(a Int, b Int) Int{
 var a Int;
 var b Bool;
 var c String;
-var d Float; 
-5%1;
+var d Float;
+1^4*b+a-e;
 }

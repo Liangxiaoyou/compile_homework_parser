@@ -158,23 +158,31 @@
     %type <stmtBlock> stmtBlock
     %type <stmt> stmt;
     %type <stmts> stmts;
-    //%type <ifStmt> ifStmt;
-    //%type <whileStmt> whileStmt;
-    //%type <forStmt> forStmt;
-    //%type <returnStmt> returnStmt;
-    //%type <continueStmt> continueStmt;
-    //%type <breakStmt> breakStmt;
+    %type <ifStmt> ifStmt;
+    %type <whileStmt> whileStmt;
+    %type <forStmt> forStmt;
+    %type <returnStmt> returnStmt;
+    %type <continueStmt> continueStmt;
+    %type <breakStmt> breakStmt;
     %type <expr> expr;
     //%type <exprs> exprs;
     %type <expr> constant;
-    //%type <call> call;
-    //%type <actual> actual;
-    //%type <actuals> actuals;
+    %type <call> call;
+    %type <actual> actual;
+    %type <actuals> actuals;
     /* Precedence declarations go here. */
 	  %nonassoc '='
 
 	// Add more here
-    
+    %right OR
+    %right AND
+    %left '+' '-'
+    %nonassoc EQUAL NE
+    %left '*' '/' '%'
+    %nonassoc '<' '>' GE LE
+    %nonassoc UMINUS
+    %nonassoc '!'
+    %left '~''&' '|' '^'
 %%
 
     /* Save the root of the abstract syntax tree in a global variable. */
@@ -233,14 +241,14 @@
     ;
     
     //单个语句
-    stmt  :';'{}
-    |expr ';'
-    //|ifStmt
-    //|whileStmt
-    //|forStmt
-    //|breakStmt
-    //|continueStmt
-    //|returnStmt
+    stmt  :';'{$$ = no_expr();}
+    |expr ';' 
+    |ifStmt
+    |whileStmt
+    |forStmt
+    |breakStmt
+    |continueStmt
+    |returnStmt
     |stmtBlock{$$ = $1;}
     ;
     
@@ -248,7 +256,7 @@
     //|IF expr stmtBlock{ifstmt($2; $3);}
     expr  :constant{$$ = $1;}
     |OBJECTID '=' expr {$$ = assign($1, $3);}
-    //|call
+    |call {$$ = $1;}
     |'(' expr ')' {$$ = $2;}
     |OBJECTID {$$ = object($1);}
     |expr '+' expr {$$ = add($1, $3);}
@@ -256,12 +264,12 @@
     |expr '*' expr {$$ = multi($1, $3);}
     |expr '/' expr {$$ = divide($1, $3);}
     |expr '%' expr {$$ = mod ($1,$3);} 
-    | '-' expr {$$ = neg($2);}
-    |expr '<' expr {$$ = le($1, $3); }
-    |expr '>' expr {$$ = lt($1, $3); }
+    | UMINUS expr {$$ = neg($2);}
+    |expr '<' expr {$$ = lt($1, $3); }
+    |expr '>' expr {$$ = gt($1, $3); }
     |expr GE expr  {$$ = ge($1, $3);}
     |expr NE expr  {$$ = neq($1,$3);}
-    |expr LE expr  {$$ = gt($1, $3);} //maybe wrong!
+    |expr LE expr  {$$ = le($1, $3);} 
     |expr EQUAL expr {$$ = equ($1,$3);}
     |expr AND expr {$$ = and_($1, $3);}
     |expr OR expr  {$$ = or_($1 , $3);}
@@ -270,6 +278,7 @@
     |expr '|' expr {bitor_($1, $3);}
     |'!' expr {$$ = not_($2);}
     |'~' expr {$$ = bitnot($2);}
+    | {$$ = no_expr();}
     ;
     
     constant  :CONST_INT{$$ = const_int($1);}
@@ -277,6 +286,39 @@
     |CONST_STRING{$$ = const_string($1);}
     |CONST_BOOL{$$ = const_bool($1);}
     ;
+
+    ifStmt  : IF expr stmtBlock ELSE stmtBlock{ $$ = ifstmt($2,$3,$5);}
+    |IF expr stmtBlock { $$ = ifstmt($2,$3,stmtBlock(nil_VariableDecls(),nil_Stmts()));}
+    ;
+
+    whileStmt : WHILE expr stmtBlock { $$ = whilestmt($2 ,$3);}
+    ;
+
+    forStmt : FOR expr ';'expr ';'expr stmtBlock {$$ = forstmt ($2,$4,$6,$7);}
+    ;
+
+    returnStmt  :RETURN expr ';'{$$ = returnstmt($2);}
+    ;
+
+    continueStmt  : CONTINUE ';' {$$ = continuestmt();}
+    ;
+
+    breakStmt : BREAK ';'{$$ = breakstmt();}
+    ;
+
+    call  : OBJECTID '(' actuals')' {$$ = call($1 , $3);}
+    ;
+
+    actual : expr{ $$ = actual($1);}
+    |;
+
+    actuals :actual{$$ =  single_Actuals($1);}
+    |actuals ',' actual {$$ = append_Actuals($1,single_Actuals($3));}
+    |{$$ = nil_Actuals();}
+    ;
+
+
+
     /* end of grammar */
 %%
     
