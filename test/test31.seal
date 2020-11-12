@@ -82,7 +82,7 @@ Program
           #6
           ReturnStmt
             (return value)
-            #5
+            #6
             No_expr
           )
         (else)
@@ -97,6 +97,6 @@ Program
       #8
       ReturnStmt
         (return value)
-        #4
+        #8
         No_expr
       )

@@ -249,7 +249,7 @@
     |breakStmt
     |continueStmt
     |returnStmt
-    |stmtBlock{$$ = $1;}
+    |stmtBlock {$$ = $1;}
     ;
     
     //ifStmt:IF expr stmtBlock ELSE stmtBlock{ifstmt($2;$3;$5);}
@@ -278,7 +278,7 @@
     |expr '|' expr {bitor_($1, $3);}
     |'!' expr {$$ = not_($2);}
     |'~' expr {$$ = bitnot($2);}
-    | {$$ = no_expr();}
+    //| {$$ = no_expr();}
     ;
     
     constant  :CONST_INT{$$ = const_int($1);}
@@ -295,9 +295,17 @@
     ;
 
     forStmt : FOR expr ';'expr ';'expr stmtBlock {$$ = forstmt ($2,$4,$6,$7);}
+    |FOR  ';'expr ';'expr stmtBlock {$$ = forstmt (no_expr(),$3,$5,$6);}
+    |FOR expr ';' ';'expr stmtBlock {$$ = forstmt ($2,no_expr(),$5,$6);}
+    |FOR expr ';'expr ';' stmtBlock {$$ = forstmt ($2,$4,no_expr(),$6);}
+    |FOR expr ';' ';' stmtBlock {$$ = forstmt ($2,no_expr(),no_expr(),$5);}
+    |FOR  ';'expr ';' stmtBlock {$$ = forstmt (no_expr(),$3,no_expr(),$5);}
+    |FOR  ';' ';'expr stmtBlock {$$ = forstmt (no_expr(),no_expr(),$4,$5);}
+    |FOR  ';' ';' stmtBlock {$$ = forstmt (no_expr(),no_expr(),no_expr(),$4);}
     ;
 
-    returnStmt  :RETURN expr ';'{$$ = returnstmt($2);}
+    returnStmt  :RETURN expr ';' {$$ = returnstmt($2);}
+    |RETURN ';' {$$ = returnstmt(no_expr());}
     ;
 
     continueStmt  : CONTINUE ';' {$$ = continuestmt();}
@@ -310,11 +318,11 @@
     ;
 
     actual : expr{ $$ = actual($1);}
-    |;
+    ;
 
-    actuals :actual{$$ =  single_Actuals($1);}
+    actuals : {$$ = nil_Actuals();}
+    |actual{$$ =  single_Actuals($1);}
     |actuals ',' actual {$$ = append_Actuals($1,single_Actuals($3));}
-    |{$$ = nil_Actuals();}
     ;
 
 
