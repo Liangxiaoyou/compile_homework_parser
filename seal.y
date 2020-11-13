@@ -225,14 +225,10 @@
     |{$$ = nil_Variables();}
     ;
     //函数声明和实现
-    callDecl  :FUNC OBJECTID '(' variables ')' TYPEID stmtBlock{
-      $$ = callDecl($2,$4,$6,$7);
-    }
+    callDecl  :FUNC OBJECTID '(' variables ')' TYPEID stmtBlock{$$ = callDecl($2,$4,$6,$7);}
     ;
     //语句块
-    stmtBlock :'{' variableDecls stmts '}'{
-    $$ = stmtBlock($2, $3);
-    }
+    stmtBlock : '{' variableDecls stmts '}' {$$ = stmtBlock($2, $3);}
     ;
 
     stmts :stmts stmt{$$ = append_Stmts($1,single_Stmts($2));}
@@ -252,8 +248,7 @@
     |stmtBlock {$$ = $1;}
     ;
     
-    //ifStmt:IF expr stmtBlock ELSE stmtBlock{ifstmt($2;$3;$5);}
-    //|IF expr stmtBlock{ifstmt($2; $3);}
+
     expr  :constant{$$ = $1;}
     |OBJECTID '=' expr {$$ = assign($1, $3);}
     |call {$$ = $1;}
@@ -264,21 +259,22 @@
     |expr '*' expr {$$ = multi($1, $3);}
     |expr '/' expr {$$ = divide($1, $3);}
     |expr '%' expr {$$ = mod ($1,$3);} 
-    | UMINUS expr {$$ = neg($2);}
+    //| '-' expr {$$ = neg($2);}
+    |'-' expr %prec UMINUS  {$$ = neg($2);}
     |expr '<' expr {$$ = lt($1, $3); }
     |expr '>' expr {$$ = gt($1, $3); }
     |expr GE expr  {$$ = ge($1, $3);}
     |expr NE expr  {$$ = neq($1,$3);}
-    |expr LE expr  {$$ = le($1, $3);} 
+    |expr LE expr  {$$ = le($1, $3);}
     |expr EQUAL expr {$$ = equ($1,$3);}
     |expr AND expr {$$ = and_($1, $3);}
     |expr OR expr  {$$ = or_($1 , $3);}
     |expr '^' expr {$$ = xor_($1, $3);}
-    |expr '&' expr {bitand_($1, $3);}
-    |expr '|' expr {bitor_($1, $3);}
+    |expr '&' expr {$$ = bitand_($1, $3);}
+    |expr '|' expr {$$ = bitor_($1, $3);}
     |'!' expr {$$ = not_($2);}
     |'~' expr {$$ = bitnot($2);}
-    //| {$$ = no_expr();}
+    
     ;
     
     constant  :CONST_INT{$$ = const_int($1);}

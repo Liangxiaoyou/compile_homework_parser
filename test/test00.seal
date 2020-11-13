@@ -1,0 +1,603 @@
+#6
+Program
+  #6
+  Call Declaration
+    (name)
+    zhanzhuanxiangchu
+    (parameters)
+    (
+    #6
+    Variable
+      (name)
+      a
+      (type)
+      Int
+    #6
+    Variable
+      (name)
+      b
+      (type)
+      Int
+    )
+    (return type)
+    Int
+    (body)
+    #6
+    Statement Block
+      (variable declarations)
+      (
+      #7
+      Variable Declaration
+        #7
+        Variable
+          (name)
+          a
+          (type)
+          Int
+      #8
+      Variable Declaration
+        #8
+        Variable
+          (name)
+          b
+          (type)
+          Int
+      )
+      (statements)
+      (
+      #10
+      Assign
+        (left value)
+        a
+        (right value)
+        #10
+        -
+          (OP left)
+          #10
+          Object
+            (name)
+            a
+            (type)
+          : _no_type
+          (OP right)
+          #10
+          -
+            (OP)
+            #10
+            !
+              (OP)
+              #10
+              Assign
+                (left value)
+                b
+                (right value)
+                #10
+                Object
+                  (name)
+                  c
+                  (type)
+                : _no_type
+                (type)
+              : _no_type
+              (type)
+            (type)
+          : _no_type
+          (type)
+        : _no_type
+        (type)
+      : _no_type
+      #11
+      ForStmt
+        (init)
+        #11
+        Assign
+          (left value)
+          sum
+          (right value)
+          #11
+          Const_int
+            (name)
+            0
+            (type)
+          : _no_type
+          (type)
+        : _no_type
+        (condition)
+        #11
+        No_expr
+        (loop)
+        #11
+        Assign
+          (left value)
+          x
+          (right value)
+          #11
+          -
+            (OP left)
+            #11
+            Object
+              (name)
+              x
+              (type)
+            : _no_type
+            (OP right)
+            #11
+            Const_int
+              (name)
+              1
+              (type)
+            : _no_type
+            (type)
+          : _no_type
+          (type)
+        : _no_type
+        (body)
+        #11
+        Statement Block
+          (variable declarations)
+          (
+          )
+          (statements)
+          (
+          #13
+          Assign
+            (left value)
+            sum
+            (right value)
+            #13
+            +
+              (OP left)
+              #13
+              Object
+                (name)
+                sum
+                (type)
+              : _no_type
+              (OP right)
+              #13
+              Assign
+                (left value)
+                x
+                (right value)
+                #13
+                Const_int
+                  (name)
+                  0
+                  (type)
+                : _no_type
+                (type)
+              : _no_type
+              (type)
+            : _no_type
+            (type)
+          : _no_type
+          #14
+          ReturnStmt
+            (return value)
+            #14
+            Object
+              (name)
+              void
+              (type)
+            : _no_type
+          )
+      #16
+      -
+        (OP left)
+        #16
+        +
+          (OP left)
+          #16
+          %
+            (OP left)
+            #16
+            -
+              (OP left)
+              #16
+              Const_int
+                (name)
+                6
+                (type)
+              : _no_type
+              (OP right)
+              #16
+              Const_int
+                (name)
+                8
+                (type)
+              : _no_type
+              (type)
+            : _no_type
+            (OP right)
+            #16
+            Const_int
+              (name)
+              7
+              (type)
+            : _no_type
+            (type)
+          : _no_type
+          (OP right)
+          #16
+          -
+            (OP)
+            #16
+            Object
+              (name)
+              sum
+              (type)
+            : _no_type
+            (type)
+          : _no_type
+          (type)
+        : _no_type
+        (OP right)
+        #16
+        -
+          (OP)
+          #16
+          ^
+            (OP left)
+            #16
+            Object
+              (name)
+              a
+              (type)
+            : _no_type
+            (OP right)
+            #16
+            Object
+              (name)
+              b
+              (type)
+            : _no_type
+            (type)
+          (type)
+        : _no_type
+        (type)
+      : _no_type
+      #17
+      Assign
+        (left value)
+        my
+        (right value)
+        #17
+        ||
+          (OP left)
+          #17
+          &
+            (OP left)
+            #17
+            Object
+              (name)
+              a
+              (type)
+            : _no_type
+            (OP right)
+            #17
+            Object
+              (name)
+              b
+              (type)
+            : _no_type
+            (type)
+          (OP right)
+          #17
+          &&
+            (OP left)
+            #17
+            Object
+              (name)
+              c
+              (type)
+            : _no_type
+            (OP right)
+            #17
+            !=
+              (OP left)
+              #17
+              Object
+                (name)
+                d
+                (type)
+              : _no_type
+              (OP right)
+              #17
+              !
+                (OP)
+                #17
+                Object
+                  (name)
+                  e
+                  (type)
+                : _no_type
+                (type)
+              (type)
+            (type)
+          (type)
+        (type)
+      : _no_type
+      #18
+      No_expr
+      #19
+      Assign
+        (left value)
+        e
+        (right value)
+        #19
+        !=
+          (OP left)
+          #19
+          /
+            (OP left)
+            #19
+            Object
+              (name)
+              a
+              (type)
+            : _no_type
+            (OP right)
+            #19
+            *
+              (OP left)
+              #19
+              %
+                (OP left)
+                #19
+                Object
+                  (name)
+                  b
+                  (type)
+                : _no_type
+                (OP right)
+                #19
+                Object
+                  (name)
+                  c
+                  (type)
+                : _no_type
+                (type)
+              : _no_type
+              (OP right)
+              #19
+              Object
+                (name)
+                d
+                (type)
+              : _no_type
+              (type)
+            : _no_type
+            (type)
+          : _no_type
+          (OP right)
+          #19
+          Object
+            (name)
+            i
+            (type)
+          : _no_type
+          (type)
+        (type)
+      : _no_type
+      #20
+      WhileStmt
+        (condition)
+        #20
+        Assign
+          (left value)
+          e
+          (right value)
+          #20
+          Const_int
+            (name)
+            0
+            (type)
+          : _no_type
+          (type)
+        : _no_type
+        (body)
+        #20
+        Statement Block
+          (variable declarations)
+          (
+          )
+          (statements)
+          (
+          #21
+          Assign
+            (left value)
+            x
+            (right value)
+            #21
+            +
+              (OP left)
+              #21
+              Object
+                (name)
+                x
+                (type)
+              : _no_type
+              (OP right)
+              #21
+              Const_int
+                (name)
+                1
+                (type)
+              : _no_type
+              (type)
+            : _no_type
+            (type)
+          : _no_type
+          #22
+          Assign
+            (left value)
+            y
+            (right value)
+            #22
+            +
+              (OP left)
+              #22
+              Const_int
+                (name)
+                3
+                (type)
+              : _no_type
+              (OP right)
+              #22
+              Const_int
+                (name)
+                2
+                (type)
+              : _no_type
+              (type)
+            : _no_type
+            (type)
+          : _no_type
+          )
+      #25
+      No_expr
+      #27
+      IfStmt
+        (condition)
+        #27
+        >
+          (OP left)
+          #27
+          Object
+            (name)
+            a
+            (type)
+          : _no_type
+          (OP right)
+          #27
+          Const_int
+            (name)
+            0
+            (type)
+          : _no_type
+          (type)
+        (then)
+        #27
+        Statement Block
+          (variable declarations)
+          (
+          )
+          (statements)
+          (
+          #27
+          IfStmt
+            (condition)
+            #27
+            >
+              (OP left)
+              #27
+              Object
+                (name)
+                b
+                (type)
+              : _no_type
+              (OP right)
+              #27
+              Const_int
+                (name)
+                0
+                (type)
+              : _no_type
+              (type)
+            (then)
+            #27
+            Statement Block
+              (variable declarations)
+              (
+              )
+              (statements)
+              (
+              )
+            (else)
+            #27
+            Statement Block
+              (variable declarations)
+              (
+              )
+              (statements)
+              (
+              )
+          )
+        (else)
+        #27
+        Statement Block
+          (variable declarations)
+          (
+          )
+          (statements)
+          (
+          #27
+          IfStmt
+            (condition)
+            #27
+            >
+              (OP left)
+              #27
+              Object
+                (name)
+                c
+                (type)
+              : _no_type
+              (OP right)
+              #27
+              Const_int
+                (name)
+                0
+                (type)
+              : _no_type
+              (type)
+            (then)
+            #27
+            Statement Block
+              (variable declarations)
+              (
+              )
+              (statements)
+              (
+              #27
+              WhileStmt
+                (condition)
+                #27
+                <
+                  (OP left)
+                  #27
+                  Object
+                    (name)
+                    b
+                    (type)
+                  : _no_type
+                  (OP right)
+                  #27
+                  Const_int
+                    (name)
+                    0
+                    (type)
+                  : _no_type
+                  (type)
+                : _no_type
+                (body)
+                #27
+                Statement Block
+                  (variable declarations)
+                  (
+                  )
+                  (statements)
+                  (
+                  )
+              )
+            (else)
+            #27
+            Statement Block
+              (variable declarations)
+              (
+              )
+              (statements)
+              (
+              )
+          )
+      )

@@ -4,9 +4,30 @@
 */
 
 func zhanzhuanxiangchu(a Int, b Int) Int{
-var a Int;
-var b Bool;
-var c String;
-var d Float;
-1^4*b+a-e;
+    var a Int;
+    var b Int;
+
+a = a--!b = c ;
+for sum = 0;; x = x - 1 {
+
+        sum = sum + x =0;
+        return void ;
+    }
+    (6-8)%7+-sum--a^b;
+    my = a&b||c&&d != !e;
+    ;
+    e = a/(b%c*d) !=  i ;
+while (e =0) {
+		x = x+1;
+y = 3 + 2;
+	}
+    
+    ;
+
+if a>0 {if b>0 {} } else {if c>0 {while b<0 {}}}
+
 }
+
+
+
+
