@@ -176,10 +176,10 @@
 	// Add more here
     %right OR
     %right AND
-    %left '+' '-'
     %nonassoc EQUAL NE
-    %left '*' '/' '%'
     %nonassoc '<' '>' GE LE
+    %left '+' '-'
+    %left '*' '/' '%'
     %nonassoc UMINUS
     %nonassoc '!'
     %left '~''&' '|' '^'

@@ -4,6 +4,11 @@
 */
 
 func zhanzhuanxiangchu(a Int, b Int) Int{
+    1+2+3;
+    a= b=c;
+    
+}
+func zhanzhuanxiangchu(a Int, b Int) Int{
     var a Int;
     var b Int;
 
