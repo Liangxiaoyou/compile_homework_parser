@@ -215,13 +215,12 @@
 				}
 				;
     //函数内的变量定义模块
-    variableDecls :variableDecl{$$ = single_VariableDecls($1);}
-    |variableDecls  variableDecl {$$ = append_VariableDecls($1,single_VariableDecls($2));}
+    variableDecls :variableDecls  variableDecl {$$ = append_VariableDecls($1,single_VariableDecls($2));}
     |{$$ = nil_VariableDecls();}
     ;
     //函数参数的变量声明模块
     variables :variable{$$ =  single_Variables($1);}
-    |variables ',' variable {$$ = append_Variables($1,single_Variables($3));}
+    |variable ',' variables {$$ = append_Variables(single_Variables($1),$3);}
     |{$$ = nil_Variables();}
     ;
     //函数声明和实现
@@ -231,20 +230,19 @@
     stmtBlock : '{' variableDecls stmts '}' {$$ = stmtBlock($2, $3);}
     ;
 
-    stmts :stmts stmt{$$ = append_Stmts($1,single_Stmts($2));}
-    |stmt{$$ = single_Stmts($1);}
+    stmts :stmt stmts{$$ = append_Stmts(single_Stmts($1),$2);}
     |{$$ = nil_Stmts();}
     ;
     
     //单个语句
-    stmt  :';'{$$ = no_expr();}
-    |expr ';' 
-    |ifStmt
-    |whileStmt
-    |forStmt
-    |breakStmt
-    |continueStmt
-    |returnStmt
+    stmt  : ';' {$$ = no_expr();}
+    |expr ';' {$$ = $1;}
+    |ifStmt {$$ = $1;}
+    |whileStmt {$$ = $1;}
+    |forStmt {$$ = $1;}
+    |breakStmt {$$ = $1;}
+    |continueStmt {$$ = $1;}
+    |returnStmt {$$ = $1;}
     |stmtBlock {$$ = $1;}
     ;
     
