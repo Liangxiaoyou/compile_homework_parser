@@ -323,7 +323,7 @@
 
     point_actuals :{$$ = nil_Actuals();}
     |',' actual point_actuals{$$ = append_Actuals(single_Actuals($2),$3);}
-
+    ;
 
 
     /* end of grammar */
