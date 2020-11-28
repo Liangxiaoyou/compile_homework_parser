@@ -180,8 +180,7 @@
     %nonassoc '<' '>' GE LE
     %left '+' '-'
     %left '*' '/' '%'
-    %nonassoc UMINUS
-    %nonassoc '!'
+    %nonassoc UMINUS '!'
     %left '~''&' '|' '^'
 %%
 

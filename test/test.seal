@@ -3,12 +3,27 @@
     the original file may not consist of all the syntax
 */
 
-func zhanzhuanxiangchu(a Int, b Int) Int{
-    1+2+3;
+func zhanzhuanxiangchu(a Int, b Int,c Int,b Int,d Int, l Int,a Int) Int{
+    a = 1+2+3;
     a= b=c;
+    2+1--5*8/(37);
+    45%3;
+    -a;
+    ;
+
+    a&b;
+    a|b;
+    a^b;
+    ~a;
+    a&~b|c^d;
+    !a|~c||a&c^d;
+    45%7.3;
+    
+
+
     
 }
-func zhanzhuanxiangchu(a Int, b Int) Int{
+func zhanzhuanxiangchu(a Int) Int{
     var a Int;
     var b Int;
 
