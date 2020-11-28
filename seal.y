@@ -153,6 +153,7 @@
     %type <variable> variable
     %type <variableDecl> variableDecl
     %type <variables> variables
+    %type <variables> point_variables
     %type <variableDecls> variableDecls
     %type <callDecl> callDecl
     %type <stmtBlock> stmtBlock
@@ -170,6 +171,7 @@
     %type <call> call;
     %type <actual> actual;
     %type <actuals> actuals;
+    %type <actuals> point_actuals
     /* Precedence declarations go here. */
 	  %nonassoc '='
 
@@ -218,10 +220,12 @@
     |{$$ = nil_VariableDecls();}
     ;
     //函数参数的变量声明模块
-    variables :variable{$$ =  single_Variables($1);}
-    |variable ',' variables {$$ = append_Variables(single_Variables($1),$3);}
+    variables :variable point_variables {$$ = append_Variables(single_Variables($1),$2);}
     |{$$ = nil_Variables();}
     ;
+
+    point_variables :{$$ = nil_Variables();}
+    |',' variable point_variables {$$ = append_Variables(single_Variables($2),$3);}
     //函数声明和实现
     callDecl  :FUNC OBJECTID '(' variables ')' TYPEID stmtBlock{$$ = callDecl($2,$4,$6,$7);}
     ;
@@ -314,9 +318,11 @@
     ;
 
     actuals : {$$ = nil_Actuals();}
-    |actual{$$ =  single_Actuals($1);}
-    |actuals ',' actual {$$ = append_Actuals($1,single_Actuals($3));}
+    |actual point_actuals {$$ = append_Actuals(single_Actuals($1),$2);}
     ;
+
+    point_actuals :{$$ = nil_Actuals();}
+    |',' actual point_actuals{$$ = append_Actuals(single_Actuals($2),$3);}
 
 
 

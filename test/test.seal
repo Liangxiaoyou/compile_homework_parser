@@ -3,14 +3,14 @@
     the original file may not consist of all the syntax
 */
 
-func zhanzhuanxiangchu(a Int, b Int,c Int,b Int,d Int, l Int,a Int) Int{
+func zhanzhuanxiangchu() Int{
     a = 1+2+3;
     a= b=c;
     2+1--5*8/(37);
     45%3;
     -a;
     ;
-
+    hello(a,b);
     a&b;
     a|b;
     a^b;
